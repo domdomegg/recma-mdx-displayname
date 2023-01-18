@@ -1,16 +1,64 @@
-import { sum } from '../src/index';
+import type { Program } from 'estree';
+import recmaMdxDisplaynamePlugin from '../src/index';
 
-test('adds postiive numbers', () => {
-  expect(sum(1, 3)).toBe(4);
-  expect(sum(10001, 1345)).toBe(11346);
-});
+// This doesn't work while importing ES modules is still a pain
+// import { compile } from '@mdx-js/mdx';
+// test.skip('real mdx', async () => {
+//   expect(await compile("# sample doc\nwith text", {
+//     recmaPlugins: [recmaMdxDisplaynamePlugin],
+//   })).toMatchInlineSnapshot();
+// });
 
-test('adds negative numbers', () => {
-  expect(sum(-1, -3)).toBe(-4);
-  expect(sum(-10001, -1345)).toBe(-11346);
-});
+test('mock ast', async () => {
+  const ast: Program = {
+    type: 'Program',
+    body: [{ type: 'EmptyStatement' }, { type: 'EmptyStatement' }, { type: 'EmptyStatement' }],
+    sourceType: 'module',
+  };
 
-test('adds a negative and positive number', () => {
-  expect(sum(1, -3)).toBe(-2);
-  expect(sum(-10001, 1345)).toBe(-8656);
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const result: Program = recmaMdxDisplaynamePlugin()(ast);
+
+  expect(result).toMatchInlineSnapshot(`
+Object {
+  "body": Array [
+    Object {
+      "type": "EmptyStatement",
+    },
+    Object {
+      "expression": Object {
+        "left": Object {
+          "computed": false,
+          "object": Object {
+            "name": "MDXContent",
+            "type": "Identifier",
+          },
+          "optional": false,
+          "property": Object {
+            "name": "displayName",
+            "type": "Identifier",
+          },
+          "type": "MemberExpression",
+        },
+        "operator": "=",
+        "right": Object {
+          "type": "Literal",
+          "value": "MDXContent",
+        },
+        "type": "AssignmentExpression",
+      },
+      "type": "ExpressionStatement",
+    },
+    Object {
+      "type": "EmptyStatement",
+    },
+    Object {
+      "type": "EmptyStatement",
+    },
+  ],
+  "sourceType": "module",
+  "type": "Program",
+}
+`);
 });
