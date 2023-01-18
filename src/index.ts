@@ -30,3 +30,5 @@ const recmaMdxDisplaynamePlugin: Plugin<[], Program> = () => (ast) => {
 };
 
 export default recmaMdxDisplaynamePlugin;
+module.exports = recmaMdxDisplaynamePlugin;
+module.exports.default = recmaMdxDisplaynamePlugin;

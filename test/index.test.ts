@@ -9,18 +9,13 @@ import recmaMdxDisplaynamePlugin from '../src/index';
 //   })).toMatchInlineSnapshot();
 // });
 
-test('mock ast', async () => {
-  const ast: Program = {
-    type: 'Program',
-    body: [{ type: 'EmptyStatement' }, { type: 'EmptyStatement' }, { type: 'EmptyStatement' }],
-    sourceType: 'module',
-  };
+const newAst = (): Program => ({
+  type: 'Program',
+  body: [{ type: 'EmptyStatement' }, { type: 'EmptyStatement' }, { type: 'EmptyStatement' }],
+  sourceType: 'module',
+});
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  const result: Program = recmaMdxDisplaynamePlugin()(ast);
-
-  expect(result).toMatchInlineSnapshot(`
+const snapshot = `
 Object {
   "body": Array [
     Object {
@@ -60,5 +55,26 @@ Object {
   "sourceType": "module",
   "type": "Program",
 }
-`);
+`;
+
+test('mock ast using import', async () => {
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
+  const result: Program = recmaMdxDisplaynamePlugin()(newAst());
+
+  expect(result).toMatchInlineSnapshot(snapshot);
+});
+
+test('mock ast using require', async () => {
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
+  const result: Program = require('../src/index')()(newAst());
+
+  expect(result).toMatchInlineSnapshot(snapshot);
+});
+
+test('mock ast using require.default', async () => {
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
+  const result: Program = require('../src/index').default()(newAst());
+
+  expect(result).toMatchInlineSnapshot(snapshot);
 });

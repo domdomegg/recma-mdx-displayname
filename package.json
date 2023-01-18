@@ -14,7 +14,6 @@
     "dist"
   ],
   "scripts": {
-    "pretest": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint src test --ext .js,.jsx,.ts,.tsx",
