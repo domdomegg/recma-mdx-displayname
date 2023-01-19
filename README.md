@@ -1,4 +1,4 @@
-# recma-mdx-displayname-plugin
+# recma-mdx-displayname
 
 Recma plugin to enable detecting MDXContent elements in production.
 
@@ -9,7 +9,7 @@ Compatible with [MDX](https://mdxjs.com/) and [Next.js](https://nextjs.org/). Yo
 Install the plugin:
 
 ```bash
-npm install recma-mdx-displayname-plugin
+npm install recma-mdx-displayname
 ```
 
 Enable it in your `next.config.js`:
@@ -18,7 +18,7 @@ Enable it in your `next.config.js`:
 const withMDX = require("@next/mdx")({
   options: {
     // add it here!
-    recmaPlugins: [require("recma-mdx-displayname-plugin")]
+    recmaPlugins: [require("recma-mdx-displayname")]
   }
 })
 

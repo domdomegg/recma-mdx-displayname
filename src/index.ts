@@ -1,8 +1,11 @@
 import type { Plugin } from 'unified';
 import type { Program } from 'estree';
+import type { VFile } from 'vfile';
 
-const recmaMdxDisplaynamePlugin: Plugin<[], Program> = () => (ast) => {
-  ast.body.splice(ast.body.length - 2, 0, {
+type DisplayNameGenerator = (vfile: VFile) => string
+
+const recmaMdxDisplayname: Plugin<[DisplayNameGenerator?], Program> = (generator = () => 'MDXContent') => (ast, vfile) => {
+  ast.body.push({
     type: 'ExpressionStatement',
     expression: {
       type: 'AssignmentExpression',
@@ -22,13 +25,10 @@ const recmaMdxDisplaynamePlugin: Plugin<[], Program> = () => (ast) => {
       },
       right: {
         type: 'Literal',
-        value: 'MDXContent',
+        value: generator(vfile),
       },
     },
   });
-  return ast;
 };
 
-export default recmaMdxDisplaynamePlugin;
-module.exports = recmaMdxDisplaynamePlugin;
-module.exports.default = recmaMdxDisplaynamePlugin;
+export = recmaMdxDisplayname;

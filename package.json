@@ -1,12 +1,12 @@
 {
-  "name": "recma-mdx-displayname-plugin",
-  "version": "0.2.0",
+  "name": "recma-mdx-displayname",
+  "version": "0.3.0",
   "description": "Recma plugin to detect MDXContent elements in production",
   "license": "MIT",
   "author": "Adam Jones (domdomegg)",
   "repository": {
     "type": "git",
-    "url": "https://github.com/domdomegg/recma-mdx-displayname-plugin.git"
+    "url": "https://github.com/domdomegg/recma-mdx-displayname.git"
   },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,8 +14,9 @@
     "dist"
   ],
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "pretest": "npm run build",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:watch": "npm run test -- --watch",
     "lint": "eslint src test --ext .js,.jsx,.ts,.tsx",
     "lint:fix": "eslint src test --ext .js,.jsx,.ts,.tsx --fix",
     "clean": "rm -rf dist",
@@ -23,21 +24,23 @@
     "prepublishOnly": "npm run clean && npm run build"
   },
   "devDependencies": {
+    "@mdx-js/mdx": "^2.2.1",
+    "@tsconfig/node18-strictest-esm": "^1.0.1",
     "@types/estree": "^1.0.0",
-    "@types/jest": "^27.0.2",
+    "@types/jest": "^29.2.6",
     "@typescript-eslint/eslint-plugin": "^5.3.0",
     "@typescript-eslint/parser": "^5.3.0",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-import-resolver-typescript": "^2.5.0",
     "eslint-plugin-import": "^2.25.2",
-    "jest": "^27.3.1",
-    "ts-jest": "^27.0.7",
-    "typescript": "^4.4.4",
-    "unified": "^10.1.2"
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.5",
+    "typescript": "^4.9.4",
+    "unified": "^10.1.2",
+    "vfile": "^5.3.6"
   },
   "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
+    "preset": "ts-jest/presets/default-esm"
   }
 }
