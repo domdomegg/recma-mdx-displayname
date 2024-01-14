@@ -1,5 +1,6 @@
 import type { VFile } from 'vfile';
 import { compile } from '@mdx-js/mdx';
+import { test, expect } from 'vitest';
 // This is a bit of a hack. We process this file as ESM because @mdx-js/mdx
 // is ESM and transpiling it and all its dependencies to CJS is a pain.
 // However, we want to export a CJS module from ../src/index so it's compatible
@@ -21,7 +22,7 @@ test('generates correct statement', async () => {
 
 test('generates correct statement with generator', async () => {
   const vfile = await compile(input, {
-    recmaPlugins: [[recmaMdxDisplayname, (vfile: VFile) => `MDXContent(${vfile.path})`]],
+    recmaPlugins: [[recmaMdxDisplayname, (v: VFile) => `MDXContent(${v.path})`]],
   });
 
   expect(vfile.value.toString().endsWith('MDXContent.displayName = "MDXContent(pages/doc.mdx)";\n')).toBe(true);
