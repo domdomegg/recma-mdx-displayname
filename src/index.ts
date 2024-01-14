@@ -2,7 +2,7 @@ import type { Plugin } from 'unified';
 import type { Program } from 'estree';
 import type { VFile } from 'vfile';
 
-type DisplayNameGenerator = (vfile: VFile) => string
+type DisplayNameGenerator = (vfile: VFile) => string;
 
 const recmaMdxDisplayname: Plugin<[DisplayNameGenerator?], Program> = (generator = () => 'MDXContent') => (ast, vfile) => {
   ast.body.push({
