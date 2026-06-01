@@ -33,7 +33,7 @@
     "typescript": "^5.3.3",
     "unified": "^10.1.2",
     "vfile": "^5.3.6",
-    "vitest": "^3.0.7"
+    "vitest": "^4.1.0"
   },
   "eslintConfig": {
     "extends": [
