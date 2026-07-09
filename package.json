@@ -18,7 +18,7 @@
     "prelint": "npm run build",
     "test": "vitest run",
     "test:watch": "vitest --watch",
-    "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
+    "lint": "eslint",
     "clean": "rm -rf dist",
     "build": "tsc --project tsconfig.build.json",
     "prepublishOnly": "npm run clean && npm run build"
@@ -28,16 +28,11 @@
     "@tsconfig/node-lts": "^20.1.1",
     "@tsconfig/strictest": "^2.0.2",
     "@types/estree": "^1.0.0",
-    "eslint": "^8.56.0",
-    "eslint-config-domdomegg": "^1.2.3",
+    "eslint": "^9.0.0",
+    "eslint-config-domdomegg": "^2.0.9",
     "typescript": "^5.3.3",
     "unified": "^10.1.2",
     "vfile": "^5.3.6",
     "vitest": "^4.1.0"
-  },
-  "eslintConfig": {
-    "extends": [
-      "eslint-config-domdomegg"
-    ]
   }
 }
